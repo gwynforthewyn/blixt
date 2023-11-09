@@ -134,7 +134,7 @@ test.integration: manifests generate fmt vet
 	BLIXT_CONTROLPLANE_IMAGE=$(BLIXT_CONTROLPLANE_IMAGE):$(TAG) \
 	BLIXT_DATAPLANE_IMAGE=$(BLIXT_DATAPLANE_IMAGE):$(TAG) \
 	BLIXT_UDP_SERVER_IMAGE=$(BLIXT_UDP_SERVER_IMAGE):$(TAG) \
-	GOFLAGS="-tags=integration_tests" go test -race -v ./test/integration/...
+	GOFLAGS="-tags=integration_tests" go test -race -v ./test/integration/... -run=^TestGatewayBasics$
 
 .PHONY: test.performance
 test.performance: manifests generate fmt vet

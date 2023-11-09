@@ -21,6 +21,7 @@ import (
 	"context"
 	"fmt"
 	"log"
+	reflection "runtime"
 	"testing"
 	"time"
 
@@ -86,6 +87,21 @@ func NewFakeClientWithGatewayClasses(initObjects ...client.Object) (gatewayv1bet
 	return gatewayv1beta1.ObjectName(managedGatewayClass.Name),
 		gatewayv1beta1.ObjectName(unmanagedGatewayClass.Name),
 		fakeClient
+}
+
+func NewTestNamespace() string {
+	pc, _, _, ok := reflection.Caller(0)
+	err := error(nil)
+
+	if !ok {
+		err = fmt.Errorf("Could not get pc info from reflection API")
+		// TODO: Panicking to simplify the return value while implementing. Shouldn't panic, though!
+		panic(err)
+	}
+
+	funcName := reflection.FuncForPC(pc)
+
+	return funcName.Name()
 }
 
 // WaitForBlixtReadiness waits for Blixt to be ready in the provided testing

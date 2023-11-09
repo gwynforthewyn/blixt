@@ -49,7 +49,8 @@ func TestGatewayBasics(t *testing.T) {
 	t.Log("deploying GatewayClass")
 	gwc := &gatewayv1beta1.GatewayClass{
 		ObjectMeta: metav1.ObjectMeta{
-			Name: uuid.NewString(),
+			Name:      uuid.NewString(),
+			Namespace: testutils.NewTestNamespace(),
 		},
 		Spec: gatewayv1beta1.GatewayClassSpec{
 			ControllerName: vars.GatewayClassControllerName,
